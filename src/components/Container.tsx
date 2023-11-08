@@ -14,12 +14,14 @@ export default function Container({
   return (
     <div
       className={cn(
-        'py-2 px-4 flex-grow basis-48 fw-full h-fit bg-gray-900 dark:bg-gray-100 text-gray-100 dark:text-gray-950 rounded-md drop-shadow-lg',
+        'py-2 px-4 flex-grow basis-48 w-full h-fit bg-gray-900 dark:bg-gray-100 text-gray-100 dark:text-gray-950 rounded-md drop-shadow-lg',
         className
       )}
     >
-      <header className='font-semibold'>{title}</header>
-      <span className='my-6 text-5xl flex items-center justify-center font-semibold'>{content}</span>
+      <header className="font-semibold truncate">{title}</header>
+      <span className="my-6 text-5xl flex items-center justify-center font-semibold">
+        {content}
+      </span>
     </div>
   )
 }
