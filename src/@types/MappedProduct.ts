@@ -3,8 +3,11 @@ export interface MappedProduct {
   name: string
   price: number
   quantity: number
-  categoryId: string | null
   description: string
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
+  category: {
+    id: string | null
+    name: string | null
+  }
 }

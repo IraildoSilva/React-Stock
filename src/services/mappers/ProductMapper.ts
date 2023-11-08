@@ -8,10 +8,13 @@ class ProductMapper {
       name: persistanceProduct.name,
       price: persistanceProduct.price,
       quantity: persistanceProduct.quantity,
-      categoryId: persistanceProduct.category_id,
       description: persistanceProduct.description,
-      createdAt: new Date(persistanceProduct.created_at),
-      updatedAt: new Date(persistanceProduct.updated_at),
+      createdAt: new Date(persistanceProduct.created_at).toLocaleString(),
+      updatedAt: new Date(persistanceProduct.updated_at).toLocaleString(),
+      category: {
+        id: persistanceProduct.category_id,
+        name: persistanceProduct.category_name,
+      },
     }
   }
 }
