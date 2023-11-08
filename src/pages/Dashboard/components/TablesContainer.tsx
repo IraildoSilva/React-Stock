@@ -12,10 +12,14 @@ import { Link } from 'react-router-dom'
 import { MappedProduct } from '@/@types/MappedProduct'
 
 interface ITablesContainerProps {
-  products: MappedProduct[]
+  productsRunningOut: MappedProduct[]
+  recentlyCreatedProducts: MappedProduct[]
 }
 
-export default function TablesContainer({ products }: ITablesContainerProps) {
+export default function TablesContainer({
+  productsRunningOut,
+  recentlyCreatedProducts,
+}: ITablesContainerProps) {
   return (
     <div className="flex justify-center gap-6 mt-6">
       <div className="flex-grow">
@@ -28,7 +32,7 @@ export default function TablesContainer({ products }: ITablesContainerProps) {
           </TableHeader>
 
           <TableBody>
-            {products.map((product) => (
+            {recentlyCreatedProducts.map((product) => (
               <TableRow key={product.id}>
                 <TableCell className="font-medium">{product.name}</TableCell>
                 <TableCell>
@@ -53,7 +57,7 @@ export default function TablesContainer({ products }: ITablesContainerProps) {
           </TableHeader>
 
           <TableBody>
-            {products.map((product) => (
+            {productsRunningOut.map((product) => (
               <TableRow key={product.id}>
                 <TableCell className="font-medium">{product.name}</TableCell>
                 <TableCell className="font-medium">
