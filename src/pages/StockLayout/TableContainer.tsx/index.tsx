@@ -35,10 +35,10 @@ export default function TableContainer({ products }: ITableContainerProps) {
             <TableCell>{product.category.name}</TableCell>
             <TableCell className="flex gap-2">
               <Button size={'sm'}>
-                <Link to={`/product/${product.id}`}>Ver</Link>
+                <Link to={`/products/${product.id}`}>Ver</Link>
               </Button>
               <Button variant={'secondary'} size={'sm'}>
-                <Link to={`/product/edit/${product.id}`}>Atualizar</Link>
+                <Link to={`/products/edit/${product.id}`}>Atualizar</Link>
               </Button>
               <Button variant={'destructive'} size={'sm'}>
                 Excluir
