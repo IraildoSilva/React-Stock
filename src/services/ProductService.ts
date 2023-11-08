@@ -1,11 +1,22 @@
-// // class ProductService {
-// // 	constructor() {
+import { HttpClient } from './utils/HttpClient'
+import { MappedProduct } from '@/@types/MappedProduct'
 
-// // 	}
+interface IProductsService {
+  httpClient: HttpClient
+}
 
-// // 	await listProducts() {
+class ProductService implements IProductsService {
+  httpClient: HttpClient
 
-// // 	}
-// // }
+  constructor() {
+    this.httpClient = new HttpClient('http://localhost:3000')
+  }
 
-// export const productService = new ProductService()
+  async listProducts() {
+    const products: MappedProduct[] = await this.httpClient.get('/products')
+
+    return products
+  }
+}
+
+export const productService = new ProductService()
