@@ -38,7 +38,7 @@ export default function TableContainer({ products }: ITableContainerProps) {
                 <Link to={`/product/${product.id}`}>Ver</Link>
               </Button>
               <Button variant={'secondary'} size={'sm'}>
-                <Link to={`/product/update/${product.id}`}>Atualizar</Link>
+                <Link to={`/product/edit/${product.id}`}>Atualizar</Link>
               </Button>
               <Button variant={'destructive'} size={'sm'}>
                 Excluir
