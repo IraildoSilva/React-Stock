@@ -1,16 +1,16 @@
 import Container from '@/components/Container'
 import { useEffect, useState } from 'react'
 import TablesContainer from './components/TablesContainer'
+import { productService } from '@/services/ProductService'
+import { MappedProduct } from '@/@types/MappedProduct'
 
 export default function Dashboard() {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState<MappedProduct[]>([])
 
   useEffect(() => {
     async function loadProducts() {
       try {
-        const result = await fetch('http://localhost:3000/products')
-
-        const products = await result.json()
+        const products = await productService.listProducts()
 
         setProducts(products)
       } catch (error) {

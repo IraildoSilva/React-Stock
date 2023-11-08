@@ -9,10 +9,10 @@ import {
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
 
-import { ProductType } from '@/@types/products'
+import { MappedProduct } from '@/@types/MappedProduct'
 
 interface ITablesContainerProps {
-  products: ProductType[]
+  products: MappedProduct[]
 }
 
 export default function TablesContainer({ products }: ITablesContainerProps) {
