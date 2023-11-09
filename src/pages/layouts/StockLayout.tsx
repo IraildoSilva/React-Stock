@@ -1,10 +1,7 @@
 import NavOption from '@/components/NavOption'
-import TableContainer from './TableContainer.tsx'
-import useStock from '@/hooks/useStock.tsx'
+import { Outlet } from 'react-router-dom'
 
 export default function StockLayout() {
-  const { products } = useStock()
-
   return (
     <div>
       <h1 className="text-5xl font-light mb-6">Stock Products</h1>
@@ -16,7 +13,7 @@ export default function StockLayout() {
         <NavOption path={'/products/new'}>Novo Produto</NavOption>
       </nav>
 
-      <TableContainer products={products} />
+      <Outlet />
     </div>
   )
 }
