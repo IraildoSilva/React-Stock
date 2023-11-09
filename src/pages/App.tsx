@@ -20,7 +20,7 @@ export default function App() {
           <h1 className="text-2xl font-semibold  uppercase">ReactStock</h1>
 
           <div className="flex flex-wrap items-center justify-center gap-8">
-            <nav className="flex gap-1 text-gray-900 dark:text-gray-100 uppercase text-sm font-bold">
+            <nav className="flex gap-1 text-gray-900 dark:text-gray-100 uppercase text-sm">
               <NavOption active={pathname === '/'} path="/">
                 Home
               </NavOption>

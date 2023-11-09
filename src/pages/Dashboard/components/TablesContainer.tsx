@@ -36,7 +36,7 @@ export default function TablesContainer({
               <TableRow key={product.id}>
                 <TableCell className="font-medium">{product.name}</TableCell>
                 <TableCell>
-                  <Link to={`/product/${product.id}`}>
+                  <Link to={`/products/${product.id}`}>
                     <Button size={'sm'}>Ver</Button>
                   </Link>
                 </TableCell>
