@@ -1,7 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from './pages/App'
 import Dashboard from './pages/Dashboard'
-import StockLayout from './pages/StockLayout'
+import ListProduct from './pages/ListProduct'
+import StockDashboard from './pages/StockDashboard'
+import StockLayout from './pages/layouts/StockLayout'
 
 export const router = createBrowserRouter([
   {
@@ -15,7 +17,12 @@ export const router = createBrowserRouter([
       {
         path: '/products',
         element: <StockLayout />,
-        children: [],
+        children: [
+          { index: true, element: <StockDashboard /> },
+          { path: '/products/:id', element: <ListProduct /> },
+          // { path: '/products/new', element: <NewProduct /> },
+          // { path: '/products/edit/:id', element: <EditProduct/> }
+        ],
       },
     ],
   },
