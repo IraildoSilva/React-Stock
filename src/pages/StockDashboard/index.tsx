@@ -34,12 +34,16 @@ export default function StockDashboard() {
               <TableCell>{product.quantity}</TableCell>
               <TableCell>{product.category.name}</TableCell>
               <TableCell className="flex gap-2">
-                <Button size={'sm'}>
-                  <Link to={`/products/${product.id}`}>Ver</Link>
-                </Button>
-                <Button variant={'secondary'} size={'sm'}>
-                  <Link to={`/products/edit/${product.id}`}>Atualizar</Link>
-                </Button>
+                <Link to={`/products/${product.id}`}>
+                  <Button size={'sm'}>Ver</Button>
+                </Link>
+
+                <Link to={`/products/edit/${product.id}`}>
+                  <Button variant={'secondary'} size={'sm'}>
+                    Atualizar
+                  </Button>
+                </Link>
+
                 <Button variant={'destructive'} size={'sm'}>
                   Excluir
                 </Button>

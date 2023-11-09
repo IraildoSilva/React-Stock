@@ -24,7 +24,12 @@ export default function App() {
               <NavOption active={pathname === '/'} path="/">
                 Home
               </NavOption>
-              <NavOption active={pathname === '/products'} path="/products">
+              <NavOption
+                active={
+                  pathname === '/products' || pathname === '/products/new'
+                }
+                path="/products"
+              >
                 Products
               </NavOption>
             </nav>

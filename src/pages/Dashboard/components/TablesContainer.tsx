@@ -36,9 +36,9 @@ export default function TablesContainer({
               <TableRow key={product.id}>
                 <TableCell className="font-medium">{product.name}</TableCell>
                 <TableCell>
-                  <Button size={'sm'}>
-                    <Link to={`/product/${product.id}`}>Ver</Link>
-                  </Button>
+                  <Link to={`/product/${product.id}`}>
+                    <Button size={'sm'}>Ver</Button>
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}
@@ -64,9 +64,9 @@ export default function TablesContainer({
                   {product.quantity}
                 </TableCell>
                 <TableCell>
-                  <Button size={'sm'}>
-                    <Link to={`/product/${product.id}`}>Ver</Link>
-                  </Button>
+                  <Link to={`/product/${product.id}`}>
+                    <Button size={'sm'}>Ver</Button>
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}
