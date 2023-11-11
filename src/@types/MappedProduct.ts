@@ -11,3 +11,11 @@ export interface MappedProduct {
     name: string | null
   }
 }
+
+export interface MappedProductToPersistance {
+  name: string
+  price: number
+  quantity: number
+  category_id: string
+  description: string
+}

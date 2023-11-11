@@ -1,6 +1,8 @@
 import { ProductType } from '@/@types/ProductType'
 import { productMapper } from './mappers/ProductMapper'
 import { HttpClient } from './utils/HttpClient'
+import { z } from 'zod'
+import { formSchema } from '@/lib/formSchema'
 
 interface IProductsService {
   httpClient: HttpClient
@@ -23,6 +25,12 @@ class ProductService implements IProductsService {
     const product: ProductType = await this.httpClient.get(`/products/${id}`)
 
     return productMapper.toDomain(product)
+  }
+
+  async createProduct(data: z.infer<typeof formSchema>) {
+    const mappedToPersistance = productMapper.toPersistance(data)
+
+    return this.httpClient.post('/products', mappedToPersistance)
   }
 }
 

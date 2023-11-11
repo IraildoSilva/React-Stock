@@ -6,6 +6,6 @@ export type ProductType = {
   category_id: string | null
   category_name: string | null
   description: string
-  created_at: string
-  updated_at: string
+  created_at?: string
+  updated_at?: string
 }
