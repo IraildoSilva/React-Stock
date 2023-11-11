@@ -1,12 +1,13 @@
 import { MappedProduct } from '@/@types/MappedProduct'
 import { ProductType } from '@/@types/ProductType'
+import formatCurrency from '@/utils/formatCurrency'
 
 class ProductMapper {
   toDomain(persistanceProduct: ProductType): MappedProduct {
     return {
       id: persistanceProduct.id,
       name: persistanceProduct.name,
-      price: persistanceProduct.price,
+      price: formatCurrency(persistanceProduct.price),
       quantity: persistanceProduct.quantity,
       description: persistanceProduct.description,
       createdAt: new Date(persistanceProduct.created_at).toLocaleString(),
