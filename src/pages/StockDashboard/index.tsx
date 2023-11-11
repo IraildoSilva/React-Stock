@@ -10,9 +10,10 @@ import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
 
 import useStock from '@/hooks/useStock.tsx'
+import SkeletonGroup from './components/SkeletonGroup'
 
 export default function StockDashboard() {
-  const { products } = useStock()
+  const { products, isLoading } = useStock()
 
   return (
     <>
@@ -27,29 +28,32 @@ export default function StockDashboard() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {products.map((product) => (
-            <TableRow key={product.id}>
-              <TableCell>{product.id}</TableCell>
-              <TableCell>{product.name}</TableCell>
-              <TableCell>{product.quantity}</TableCell>
-              <TableCell>{product.category.name}</TableCell>
-              <TableCell className="flex gap-2">
-                <Link to={`/products/${product.id}`}>
-                  <Button size={'sm'}>Ver</Button>
-                </Link>
+          {isLoading && <SkeletonGroup />}
 
-                <Link to={`/products/edit/${product.id}`}>
-                  <Button variant={'secondary'} size={'sm'}>
-                    Atualizar
+          {!isLoading &&
+            products.map((product) => (
+              <TableRow key={product.id}>
+                <TableCell>{product.id}</TableCell>
+                <TableCell>{product.name}</TableCell>
+                <TableCell>{product.quantity}</TableCell>
+                <TableCell>{product.category.name}</TableCell>
+                <TableCell className="flex gap-2">
+                  <Link to={`/products/${product.id}`}>
+                    <Button size={'sm'}>Ver</Button>
+                  </Link>
+
+                  <Link to={`/products/edit/${product.id}`}>
+                    <Button variant={'secondary'} size={'sm'}>
+                      Atualizar
+                    </Button>
+                  </Link>
+
+                  <Button variant={'destructive'} size={'sm'}>
+                    Excluir
                   </Button>
-                </Link>
-
-                <Button variant={'destructive'} size={'sm'}>
-                  Excluir
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </>
