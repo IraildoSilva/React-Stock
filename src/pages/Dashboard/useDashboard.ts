@@ -3,7 +3,7 @@ import useStock from '@/hooks/useStock'
 import { parse, differenceInDays } from 'date-fns'
 
 export default function useDashboard() {
-  const { products } = useStock()
+  const { products, isLoading } = useStock()
 
   const productsDiversity = new Set()
 
@@ -34,6 +34,7 @@ export default function useDashboard() {
   const productsRunningOutQty = productsRunningOut.length
 
   return {
+    isLoading,
     productsRunningOut,
     recentlyCreatedProducts,
     productsDiversityQty,

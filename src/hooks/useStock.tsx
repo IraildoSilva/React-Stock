@@ -10,6 +10,7 @@ import {
 
 interface IStockContext {
   products: MappedProduct[]
+  isLoading: boolean
   handleProducts: (products: MappedProduct[]) => void
 }
 
@@ -21,15 +22,19 @@ const StockContext = createContext<IStockContext | undefined>(undefined)
 
 export function StockContextProvider({ children }: IStockContextProviderProps) {
   const [products, setProducts] = useState<MappedProduct[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     async function loadContacts() {
       try {
+        setIsLoading(true)
         const productsData = await productService.listProducts()
 
         setProducts(productsData)
       } catch (error) {
         console.log(error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
@@ -41,7 +46,7 @@ export function StockContextProvider({ children }: IStockContextProviderProps) {
   }
 
   return (
-    <StockContext.Provider value={{ products, handleProducts }}>
+    <StockContext.Provider value={{ products, isLoading, handleProducts }}>
       {children}
     </StockContext.Provider>
   )

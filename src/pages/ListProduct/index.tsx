@@ -44,7 +44,7 @@ export default function ListProduct() {
       <div className="flex w-full max-w-3xl gap-4 mt-8">
         <Container content={`Categoria: ${product?.category?.name}`} />
         <Container content={`Quantidade em estoque: ${product?.quantity}`} />
-        <Container content={`Preço: R$${product?.price},00`} />
+        <Container content={`Preço: ${product?.price}`} />
       </div>
 
       <span className="mt-8 block">{product?.description}</span>
