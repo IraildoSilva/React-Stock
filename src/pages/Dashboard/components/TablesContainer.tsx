@@ -64,7 +64,7 @@ export default function TablesContainer({
                   {product.quantity}
                 </TableCell>
                 <TableCell>
-                  <Link to={`/product/${product.id}`}>
+                  <Link to={`/products/${product.id}`}>
                     <Button size={'sm'}>Ver</Button>
                   </Link>
                 </TableCell>
