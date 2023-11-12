@@ -46,7 +46,13 @@ export function StockContextProvider({ children }: IStockContextProviderProps) {
   }
 
   return (
-    <StockContext.Provider value={{ products, isLoading, handleProducts }}>
+    <StockContext.Provider
+      value={{
+        products,
+        isLoading,
+        handleProducts,
+      }}
+    >
       {children}
     </StockContext.Provider>
   )
