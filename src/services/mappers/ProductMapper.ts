@@ -28,8 +28,12 @@ class ProductMapper {
       price: formatCurrency(persistanceProduct.price),
       quantity: persistanceProduct.quantity,
       description: persistanceProduct.description,
-      createdAt: new Date(persistanceProduct.created_at!).toLocaleString(),
-      updatedAt: new Date(persistanceProduct.updated_at!).toLocaleString(),
+      createdAt: new Date(persistanceProduct.created_at!).toLocaleString(
+        'pt-BR'
+      ),
+      updatedAt: new Date(persistanceProduct.updated_at!).toLocaleString(
+        'pt-BR'
+      ),
       category: {
         id: persistanceProduct.category_id,
         name: persistanceProduct.category_name,
