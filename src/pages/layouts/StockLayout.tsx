@@ -5,8 +5,8 @@ export default function StockLayout() {
   const { pathname } = useLocation()
 
   return (
-    <div>
-      <h1 className="text-5xl font-light mb-6">Stock Products</h1>
+    <div className="">
+      <h1 className="text-5xl font-light mb-5">Stock Products</h1>
 
       <nav className="border-b-2 dark:border-gray-400 p-1">
         <NavOption active={pathname === '/products'} path={'/products'}>

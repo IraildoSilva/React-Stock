@@ -12,7 +12,6 @@ export default function SkeletonGroup() {
       <SkeletonRow />
       <SkeletonRow />
       <SkeletonRow />
-      <SkeletonRow />
     </>
   )
 }

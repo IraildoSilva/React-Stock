@@ -15,8 +15,14 @@ class ProductService implements IProductsService {
     this.httpClient = new HttpClient('http://localhost:3003')
   }
 
-  async listProducts() {
-    const products: ProductType[] = await this.httpClient.get('/products')
+  async listProducts(query?: { offset: string; limit: string }) {
+    const path = query?.offset
+      ? `/products?offset=${query.offset}&limit=${query.limit}`
+      : '/products'
+
+    console.log(path)
+
+    const products: ProductType[] = await this.httpClient.get(path)
 
     return products.map(productMapper.toDomain)
   }

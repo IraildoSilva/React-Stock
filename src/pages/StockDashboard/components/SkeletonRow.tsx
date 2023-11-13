@@ -5,19 +5,19 @@ export default function SkeletonRow() {
   return (
     <TableRow>
       <TableCell>
-        <Skeleton className="w-full h-10" />
+        <Skeleton className="w-full h-[37.5px]" />
       </TableCell>
       <TableCell>
-        <Skeleton className="w-full h-10" />
+        <Skeleton className="w-full h-[37.5px]" />
       </TableCell>
       <TableCell>
-        <Skeleton className="w-full h-10" />
+        <Skeleton className="w-full h-[37.5px]" />
       </TableCell>
       <TableCell>
-        <Skeleton className="w-full h-10" />
+        <Skeleton className="w-full h-[37.5px]" />
       </TableCell>
       <TableCell>
-        <Skeleton className="w-full h-10" />
+        <Skeleton className="w-full h-[37.5px]" />
       </TableCell>
     </TableRow>
   )
