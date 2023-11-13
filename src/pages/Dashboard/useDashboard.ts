@@ -1,9 +1,29 @@
 import { MappedProduct } from '@/@types/MappedProduct'
-import useStock from '@/hooks/useStock'
+import { productService } from '@/services/ProductService'
 import { parse, differenceInDays } from 'date-fns'
+import { useEffect, useState } from 'react'
 
 export default function useDashboard() {
-  const { products, isLoading } = useStock()
+  const [products, setProducts] = useState<MappedProduct[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    async function loadProducts() {
+      try {
+        setIsLoading(true)
+
+        const data = await productService.listProducts()
+
+        setProducts(data)
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadProducts()
+  }, [])
 
   const productsDiversity = new Set()
 
