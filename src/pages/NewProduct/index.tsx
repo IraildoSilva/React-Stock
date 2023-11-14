@@ -22,7 +22,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 
 import { formSchema } from '@/lib/formSchema'
-import { productService } from '@/services/ProductService'
+import { productService } from '@/services/Product/ProductService'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import Spinner from '@/components/Loader/Spinner'

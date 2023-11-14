@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import { productService } from '@/services/ProductService'
+import { productService } from '@/services/Product/ProductService'
 import { useEffect, useState } from 'react'
 
 import { MappedProduct } from '@/@types/MappedProduct'
@@ -30,7 +30,6 @@ export default function ListProduct() {
 
     loadProduct()
   }, [id])
-
 
   return (
     <div className="mt-4">

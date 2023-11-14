@@ -10,8 +10,8 @@ import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
 
 import SkeletonGroup from './components/SkeletonGroup'
-import { MappedProduct } from '@/@types/MappedProduct'
-import { productService } from '@/services/ProductService'
+import { MappedAPIResponse, MappedProduct } from '@/@types/MappedProduct'
+import { productService } from '@/services/Product/ProductService'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
@@ -19,7 +19,9 @@ export default function ProductsList() {
   const [products, setProducts] = useState<MappedProduct[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [offset, setOffset] = useState('0')
-  const [page, setPage] = useState('1')
+  const [pagesMetadata, setPagesMetadata] = useState<MappedAPIResponse['meta']>(
+    {} as MappedAPIResponse['meta']
+  )
 
   useEffect(() => {
     async function loadProducts() {
@@ -31,7 +33,8 @@ export default function ProductsList() {
           limit: '10',
         })
 
-        setProducts(data)
+        setProducts(data.products)
+        setPagesMetadata(data.meta)
       } catch (error) {
         console.log(error)
       } finally {
@@ -43,16 +46,14 @@ export default function ProductsList() {
   }, [offset])
 
   function handleNextButtonClick() {
-    setPage((prevState) => (Number(prevState) + 1).toString())
     setOffset((prevState) => (Number(prevState) + 10).toString())
   }
 
   function handlePrevButtonClick() {
-    if (page === '1') {
+    if (pagesMetadata.currentPage === 1) {
       return
     }
 
-    setPage((prevState) => (Number(prevState) - 1).toString())
     setOffset((prevState) => (Number(prevState) - 10).toString())
   }
 
@@ -102,16 +103,20 @@ export default function ProductsList() {
 
       <div className="mt-2 absolute right-12 bottom-4 flex gap-4 items-center justify-end">
         <Button
-          disabled={page === '1'}
+          disabled={pagesMetadata.currentPage === 1}
           onClick={handlePrevButtonClick}
           size={'icon'}
           className="rounded-full w-8 h-8"
         >
           <ChevronLeft />
         </Button>
-        <span className="text-xl w-5 text-center">{page}</span>
+        <span className="text-xl w-5 text-center">
+          {pagesMetadata.currentPage}
+        </span>
         <Button
-          disabled={isLoading || products.length < 10}
+          disabled={
+            isLoading || pagesMetadata.currentPage === pagesMetadata.totalPages
+          }
           onClick={handleNextButtonClick}
           size={'icon'}
           className="rounded-full w-8 h-8"

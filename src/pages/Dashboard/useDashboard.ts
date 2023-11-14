@@ -1,5 +1,5 @@
 import { MappedProduct } from '@/@types/MappedProduct'
-import { productService } from '@/services/ProductService'
+import { productService } from '@/services/Product/ProductService'
 import { parse, differenceInDays } from 'date-fns'
 import { useEffect, useState } from 'react'
 
@@ -14,7 +14,7 @@ export default function useDashboard() {
 
         const data = await productService.listProducts()
 
-        setProducts(data)
+        setProducts(data.products)
       } catch (error) {
         console.log(error)
       } finally {

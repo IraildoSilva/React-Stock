@@ -19,3 +19,11 @@ export interface MappedProductToPersistance {
   category_id: string
   description: string
 }
+
+export interface MappedAPIResponse {
+  products: MappedProduct[]
+  meta: {
+    currentPage: number
+    totalPages: number
+  }
+}

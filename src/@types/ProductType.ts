@@ -9,3 +9,11 @@ export type ProductType = {
   created_at?: string
   updated_at?: string
 }
+
+export type ApiResponseType = {
+  products: ProductType[]
+  meta: {
+    currentPage: number
+    totalPages: number
+  }
+}

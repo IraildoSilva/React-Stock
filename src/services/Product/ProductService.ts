@@ -1,8 +1,9 @@
-import { ProductType } from '@/@types/ProductType'
-import { productMapper } from './mappers/ProductMapper'
-import { HttpClient } from './utils/HttpClient'
+import { ApiResponseType, ProductType } from '@/@types/ProductType'
+import { productMapper } from './ProductMapper'
+import { HttpClient } from '../utils/HttpClient'
 import { z } from 'zod'
 import { formSchema } from '@/lib/formSchema'
+import { MappedAPIResponse } from '@/@types/MappedProduct'
 
 interface IProductsService {
   httpClient: HttpClient
@@ -20,9 +21,14 @@ class ProductService implements IProductsService {
       ? `/products?offset=${query.offset}&limit=${query.limit}`
       : '/products'
 
-    const products: ProductType[] = await this.httpClient.get(path)
+    const data: ApiResponseType = await this.httpClient.get(path)
 
-    return products.map(productMapper.toDomain)
+    const mappedData: MappedAPIResponse = {
+      ...data,
+      products: data.products.map(productMapper.toDomain),
+    }
+
+    return mappedData
   }
 
   async getProductById(id: string) {

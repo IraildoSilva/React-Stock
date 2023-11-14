@@ -1,5 +1,5 @@
 import { MappedProduct } from '@/@types/MappedProduct'
-import { productService } from '@/services/ProductService'
+import { productService } from '@/services/Product/ProductService'
 import {
   ReactNode,
   createContext,
