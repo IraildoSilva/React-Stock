@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import SkeletonGroup from './components/SkeletonGroup'
 import formatCurrency from '@/utils/formatCurrency'
 
+
 export default function ListProduct() {
   const [product, setProduct] = useState<MappedProduct>({} as MappedProduct)
   const [isLoading, setIsLoading] = useState<boolean>(true)

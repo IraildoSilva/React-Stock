@@ -3,6 +3,7 @@ import { Sun, Moon } from 'lucide-react'
 import NavOption from '@/components/NavOption'
 import { Outlet, useLocation } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
+import ToastWrapper from '@/components/ToastWrapper'
 
 export default function App() {
   const [theme, setTheme] = useState('dark')
@@ -45,9 +46,10 @@ export default function App() {
             </Button>
           </div>
         </header>
-
         <Outlet />
       </div>
+
+      <ToastWrapper />
     </div>
   )
 }
