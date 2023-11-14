@@ -6,8 +6,6 @@ import {
 import { ProductType } from '@/@types/ProductType'
 import { formSchema } from '@/lib/formSchema'
 
-import formatCurrency from '@/utils/formatCurrency'
-
 class ProductMapper {
   toPersistance(
     domainProduct: z.infer<typeof formSchema>
@@ -25,7 +23,7 @@ class ProductMapper {
     return {
       id: persistanceProduct.id,
       name: persistanceProduct.name,
-      price: formatCurrency(persistanceProduct.price),
+      price: persistanceProduct.price,
       quantity: persistanceProduct.quantity,
       description: persistanceProduct.description,
       createdAt: new Date(persistanceProduct.created_at!).toLocaleString(

@@ -26,8 +26,8 @@ export default function TablesContainer({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Produtos Recentes</TableHead>
-              <TableHead className="w-[200px]">Ações</TableHead>
+              <TableHead className="w-[310px]">Produtos Recentes</TableHead>
+              <TableHead className="w-[100px]">Ações</TableHead>
             </TableRow>
           </TableHeader>
 

@@ -7,6 +7,7 @@ import { MappedProduct } from '@/@types/MappedProduct'
 import Container from '@/components/Container'
 import { Button } from '@/components/ui/button'
 import SkeletonGroup from './components/SkeletonGroup'
+import formatCurrency from '@/utils/formatCurrency'
 
 export default function ListProduct() {
   const [product, setProduct] = useState<MappedProduct>({} as MappedProduct)
@@ -54,7 +55,7 @@ export default function ListProduct() {
             <Container
               content={`Quantidade em estoque: ${product?.quantity}`}
             />
-            <Container content={`Preço: ${product?.price}`} />
+            <Container content={`Preço: ${formatCurrency(product?.price)}`} />
           </div>
 
           <span className="mt-8 block">{product?.description}</span>

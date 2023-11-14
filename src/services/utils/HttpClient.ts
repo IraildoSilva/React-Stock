@@ -48,4 +48,32 @@ export class HttpClient implements IHttpClient {
       responseBody.error || `${response.status} - ${response.statusText}`
     )
   }
+
+  async put(path: string, data: MappedProductToPersistance) {
+    const headers = new Headers()
+
+    headers.append('Content-Type', 'application/json')
+
+    const response = await fetch(`${this.baseURL}${path}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers,
+    })
+
+    let responseBody = null
+
+    const contentType = response.headers.get('Content-Type')
+
+    if (contentType?.includes('application/json')) {
+      responseBody = await response.json()
+    }
+
+    if (response.ok) {
+      return responseBody
+    }
+
+    throw new Error(
+      responseBody.error || `${response.status} - ${response.statusText} `
+    )
+  }
 }

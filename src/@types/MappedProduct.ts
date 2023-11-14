@@ -1,7 +1,7 @@
 export interface MappedProduct {
   id: string
   name: string
-  price: string
+  price: number
   quantity: number
   description: string
   createdAt: string

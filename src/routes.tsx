@@ -5,6 +5,7 @@ import ListProduct from './pages/ListProduct'
 import StockLayout from './pages/layouts/StockLayout'
 import NewProduct from './pages/NewProduct'
 import ProductsList from './pages/ProductsList'
+import EditProduct from './pages/EditProduct'
 
 export const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ export const router = createBrowserRouter([
           { index: true, element: <ProductsList /> },
           { path: '/products/:id', element: <ListProduct /> },
           { path: '/products/new', element: <NewProduct /> },
-          // { path: '/products/edit/:id', element: <EditProduct/> }
+          { path: '/products/edit/:id', element: <EditProduct /> },
         ],
       },
     ],

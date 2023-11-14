@@ -101,7 +101,7 @@ export default function ProductsList() {
         </Table>
       </div>
 
-      <div className="mt-2 absolute right-12 bottom-4 flex gap-4 items-center justify-end">
+      <div className="mt-2 fixed right-12 bottom-4 flex gap-4 items-center justify-end">
         <Button
           disabled={pagesMetadata.currentPage === 1}
           onClick={handlePrevButtonClick}

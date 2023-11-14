@@ -42,6 +42,12 @@ class ProductService implements IProductsService {
 
     return this.httpClient.post('/products', mappedToPersistance)
   }
+
+  async updateProduct(id: string, data: z.infer<typeof formSchema>) {
+    const mappedToPersistance = productMapper.toPersistance(data)
+
+    return this.httpClient.put(`/products/${id}`, mappedToPersistance)
+  }
 }
 
 export const productService = new ProductService()
