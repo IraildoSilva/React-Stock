@@ -20,6 +20,7 @@ export default function ProductsList() {
     pagesMetadata,
     handlePrevButtonClick,
     handleNextButtonClick,
+    onDelete,
   } = useProductsList()
 
   return (
@@ -56,7 +57,11 @@ export default function ProductsList() {
                       </Button>
                     </Link>
 
-                    <Button variant={'destructive'} size={'sm'}>
+                    <Button
+                      onClick={() => onDelete(product.id)}
+                      variant={'destructive'}
+                      size={'sm'}
+                    >
                       Excluir
                     </Button>
                   </TableCell>

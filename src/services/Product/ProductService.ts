@@ -48,6 +48,10 @@ class ProductService implements IProductsService {
 
     return this.httpClient.put(`/products/${id}`, mappedToPersistance)
   }
+
+  async deleteProduct(id: string) {
+    await this.httpClient.delete(`/products/${id}`)
+  }
 }
 
 export const productService = new ProductService()

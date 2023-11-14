@@ -76,4 +76,10 @@ export class HttpClient implements IHttpClient {
       responseBody.error || `${response.status} - ${response.statusText} `
     )
   }
+
+  async delete(path: string) {
+    await fetch(`${this.baseURL}${path}`, {
+      method: 'DELETE',
+    })
+  }
 }

@@ -1,6 +1,7 @@
 import { MappedProduct, MappedAPIResponse } from '@/@types/MappedProduct'
 import { productService } from '@/services/Product/ProductService'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+import Toast from '@/utils/Toast'
 
 export default function useProductsList() {
   const [products, setProducts] = useState<MappedProduct[]>([])
@@ -10,27 +11,31 @@ export default function useProductsList() {
     {} as MappedAPIResponse['meta']
   )
 
+  const loadProducts = useCallback(async () => {
+    try {
+      setIsLoading(true)
+
+      const data = await productService.listProducts({
+        offset,
+        limit: '10',
+      })
+
+      setProducts(data.products)
+      setPagesMetadata(data.meta)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [offset])
+
   useEffect(() => {
-    async function loadProducts() {
-      try {
-        setIsLoading(true)
-
-        const data = await productService.listProducts({
-          offset,
-          limit: '10',
-        })
-
-        setProducts(data.products)
-        setPagesMetadata(data.meta)
-      } catch (error) {
-        console.log(error)
-      } finally {
-        setIsLoading(false)
-      }
+    async function fetchProducts() {
+      await loadProducts()
     }
 
-    loadProducts()
-  }, [offset])
+    fetchProducts()
+  }, [loadProducts])
 
   function handleNextButtonClick() {
     if (Number(offset) === pagesMetadata.totalPages * 10 - 10) {
@@ -48,11 +53,31 @@ export default function useProductsList() {
     setOffset((prevState) => (Number(prevState) - 10).toString())
   }
 
+  async function onDelete(id: string) {
+    try {
+      await productService.deleteProduct(id)
+
+      const updatedProductsList = products.filter(
+        (product) => product.id !== id
+      )
+
+      setProducts(updatedProductsList)
+
+      await loadProducts()
+      Toast('success', 'Produto excluído!')
+    } catch (error) {
+      console.log(error)
+
+      Toast('error', 'Ocorreu um erro ao deletar o produto...')
+    }
+  }
+
   return {
     isLoading,
     products,
     pagesMetadata,
     handlePrevButtonClick,
     handleNextButtonClick,
+    onDelete,
   }
 }

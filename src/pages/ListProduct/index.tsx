@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { productService } from '@/services/Product/ProductService'
 import { useEffect, useState } from 'react'
 
@@ -8,13 +8,14 @@ import Container from '@/components/Container'
 import { Button } from '@/components/ui/button'
 import SkeletonGroup from './components/SkeletonGroup'
 import formatCurrency from '@/utils/formatCurrency'
-
+import Toast from '@/utils/Toast'
 
 export default function ListProduct() {
   const [product, setProduct] = useState<MappedProduct>({} as MappedProduct)
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   const { id } = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
     async function loadProduct() {
@@ -33,6 +34,18 @@ export default function ListProduct() {
     loadProduct()
   }, [id])
 
+  async function onDelete(id: string) {
+    try {
+      await productService.deleteProduct(id)
+
+      Toast('success', 'Produto excluído')
+      navigate('/products')
+    } catch (error) {
+      console.log(error)
+      Toast('error', 'Ocorreu um erro ao deletar o produto')
+    }
+  }
+
   return (
     <div className="mt-4">
       {isLoading && <SkeletonGroup />}
@@ -45,7 +58,11 @@ export default function ListProduct() {
               <Link to={`/products/edit/${product?.id}`}>
                 <Button variant={'secondary'}>Atualizar</Button>
               </Link>
-              <Button className="ml-3" variant={'destructive'}>
+              <Button
+                onClick={() => onDelete(product?.id)}
+                className="ml-3"
+                variant={'destructive'}
+              >
                 Excluir
               </Button>
             </div>
