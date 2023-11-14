@@ -8,58 +8,19 @@ import {
 } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
-
-import SkeletonGroup from './components/SkeletonGroup'
-import { MappedAPIResponse, MappedProduct } from '@/@types/MappedProduct'
-import { productService } from '@/services/Product/ProductService'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import SkeletonGroup from './components/SkeletonGroup'
+
+import useProductsList from './useProductsList'
 
 export default function ProductsList() {
-  const [products, setProducts] = useState<MappedProduct[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [offset, setOffset] = useState('0')
-  const [pagesMetadata, setPagesMetadata] = useState<MappedAPIResponse['meta']>(
-    {} as MappedAPIResponse['meta']
-  )
-
-  useEffect(() => {
-    async function loadProducts() {
-      try {
-        setIsLoading(true)
-
-        const data = await productService.listProducts({
-          offset,
-          limit: '10',
-        })
-
-        setProducts(data.products)
-        setPagesMetadata(data.meta)
-      } catch (error) {
-        console.log(error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    loadProducts()
-  }, [offset])
-
-  function handleNextButtonClick() {
-    if (Number(offset) === pagesMetadata.totalPages * 10 - 10) {
-      return
-    }
-
-    setOffset((prevState) => (Number(prevState) + 10).toString())
-  }
-
-  function handlePrevButtonClick() {
-    if (offset === '0' || pagesMetadata.currentPage === 1) {
-      return
-    }
-
-    setOffset((prevState) => (Number(prevState) - 10).toString())
-  }
+  const {
+    isLoading,
+    products,
+    pagesMetadata,
+    handlePrevButtonClick,
+    handleNextButtonClick,
+  } = useProductsList()
 
   return (
     <div className="flex flex-col">
