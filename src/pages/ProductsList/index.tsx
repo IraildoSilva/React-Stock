@@ -111,7 +111,7 @@ export default function ProductsList() {
           <ChevronLeft />
         </Button>
         <span className="text-xl w-5 text-center">
-          {pagesMetadata.currentPage}
+          {pagesMetadata.currentPage || 1}
         </span>
         <Button
           disabled={
