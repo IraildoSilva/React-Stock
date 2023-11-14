@@ -1,5 +1,3 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
 import {
@@ -20,56 +18,22 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-
-import { formSchema } from '@/lib/formSchema'
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
 import Spinner from '@/components/Loader/Spinner'
-import { MappedProduct } from '@/@types/MappedProduct'
 
-interface IProductFormProps {
+import { MappedProduct } from '@/@types/MappedProduct'
+import { formSchema } from '@/lib/formSchema'
+import useProductForm from './useProductForm'
+
+export interface IProductFormProps {
   product?: MappedProduct
   onSubmit: (data: z.infer<typeof formSchema>) => Promise<void>
 }
 
 export default function ProductForm({ product, onSubmit }: IProductFormProps) {
-  const [isLoading, setIsLoading] = useState(false)
-  const navigate = useNavigate()
-
-  let defaultValues
-
-  if (!product) {
-    defaultValues = {
-      name: '',
-      quantity: '0',
-      price: '0',
-      categoryId: '',
-      description: '',
-    }
-  } else {
-    defaultValues = {
-      name: product.name,
-      quantity: product.quantity.toString(),
-      price: product.price.toString(),
-      categoryId: product.category.id ?? '',
-      description: product.description,
-    }
-  }
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues,
+  const { form, handleSubmit, isLoading } = useProductForm({
+    product,
+    onSubmit,
   })
-
-  async function handleSubmit(data: z.infer<typeof formSchema>) {
-    setIsLoading(true)
-
-    await onSubmit(data)
-
-    setIsLoading(false)
-    navigate('/products')
-    form.reset({ ...data })
-  }
 
   return (
     <>
