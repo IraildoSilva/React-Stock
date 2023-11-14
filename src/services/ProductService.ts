@@ -20,8 +20,6 @@ class ProductService implements IProductsService {
       ? `/products?offset=${query.offset}&limit=${query.limit}`
       : '/products'
 
-    console.log(path)
-
     const products: ProductType[] = await this.httpClient.get(path)
 
     return products.map(productMapper.toDomain)

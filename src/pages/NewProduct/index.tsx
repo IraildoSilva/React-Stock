@@ -43,7 +43,6 @@ export default function NewProduct() {
   })
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data)
     try {
       setIsLoading(true)
 
