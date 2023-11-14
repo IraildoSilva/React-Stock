@@ -26,8 +26,6 @@ export default function EditProduct() {
     loadProduct()
   }, [id])
 
-  console.log(product)
-
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
       await productService.updateProduct(id!, data)
