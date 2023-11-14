@@ -29,7 +29,11 @@ export default function EditProduct() {
   console.log(product)
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    await productService.updateProduct(id!, data)
+    try {
+      await productService.updateProduct(id!, data)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
