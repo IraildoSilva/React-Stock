@@ -15,7 +15,7 @@ import { productService } from '@/services/ProductService'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
-export default function StockDashboard() {
+export default function ProductsList() {
   const [products, setProducts] = useState<MappedProduct[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [offset, setOffset] = useState('0')
@@ -102,14 +102,16 @@ export default function StockDashboard() {
 
       <div className="mt-2 absolute right-12 bottom-4 flex gap-4 items-center justify-end">
         <Button
+          disabled={page === '1'}
           onClick={handlePrevButtonClick}
           size={'icon'}
           className="rounded-full w-8 h-8"
         >
           <ChevronLeft />
         </Button>
-        <span className="text-xl">{page}</span>
+        <span className="text-xl w-5 text-center">{page}</span>
         <Button
+          disabled={isLoading || products.length < 10}
           onClick={handleNextButtonClick}
           size={'icon'}
           className="rounded-full w-8 h-8"
