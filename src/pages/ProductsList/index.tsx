@@ -46,11 +46,15 @@ export default function ProductsList() {
   }, [offset])
 
   function handleNextButtonClick() {
+    if (Number(offset) === pagesMetadata.totalPages * 10 - 10) {
+      return
+    }
+
     setOffset((prevState) => (Number(prevState) + 10).toString())
   }
 
   function handlePrevButtonClick() {
-    if (pagesMetadata.currentPage === 1) {
+    if (offset === '0' || pagesMetadata.currentPage === 1) {
       return
     }
 
@@ -114,9 +118,7 @@ export default function ProductsList() {
           {pagesMetadata.currentPage || 1}
         </span>
         <Button
-          disabled={
-            isLoading || pagesMetadata.currentPage === pagesMetadata.totalPages
-          }
+          disabled={pagesMetadata.currentPage === pagesMetadata.totalPages}
           onClick={handleNextButtonClick}
           size={'icon'}
           className="rounded-full w-8 h-8"
