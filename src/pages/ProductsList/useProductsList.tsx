@@ -2,6 +2,7 @@ import { MappedProduct, MappedAPIResponse } from '@/@types/MappedProduct'
 import { productService } from '@/services/Product/ProductService'
 import { useState, useEffect, useCallback } from 'react'
 import Toast from '@/utils/Toast'
+import { useNavigate } from 'react-router-dom'
 
 export default function useProductsList() {
   const [products, setProducts] = useState<MappedProduct[]>([])
@@ -72,6 +73,12 @@ export default function useProductsList() {
     }
   }
 
+  const navigate = useNavigate()
+
+  function handleClick(id: string) {
+    navigate(`/products/${id}`)
+  }
+
   return {
     isLoading,
     products,
@@ -79,5 +86,6 @@ export default function useProductsList() {
     handlePrevButtonClick,
     handleNextButtonClick,
     onDelete,
+    handleClick,
   }
 }

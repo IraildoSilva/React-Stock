@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Edit, Trash } from 'lucide-react'
 import SkeletonGroup from './components/SkeletonGroup'
 
 import useProductsList from './useProductsList'
@@ -21,6 +21,7 @@ export default function ProductsList() {
     handlePrevButtonClick,
     handleNextButtonClick,
     onDelete,
+    handleClick,
   } = useProductsList()
 
   return (
@@ -29,11 +30,11 @@ export default function ProductsList() {
         <Table className="mt-3">
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[400px]">ID</TableHead>
+              <TableHead className="w-[300px]">ID</TableHead>
               <TableHead className="w-[250px]">Nome</TableHead>
               <TableHead className="w-[150px]">Em estoque</TableHead>
               <TableHead className="w-[150px]">Categoria</TableHead>
-              <TableHead className="w-[250px]">Ações</TableHead>
+              <TableHead className="w-[100px]">Ações</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -41,28 +42,32 @@ export default function ProductsList() {
 
             {!isLoading &&
               products.map((product) => (
-                <TableRow key={product.id}>
+                <TableRow
+                  onClick={() => handleClick(product.id)}
+                  key={product.id}
+                >
                   <TableCell>{product.id}</TableCell>
                   <TableCell>{product.name}</TableCell>
                   <TableCell>{product.quantity}</TableCell>
                   <TableCell>{product.category.name}</TableCell>
                   <TableCell className="flex gap-2">
-                    <Link to={`/products/${product.id}`}>
-                      <Button size={'sm'}>Ver</Button>
-                    </Link>
-
                     <Link to={`/products/edit/${product.id}`}>
-                      <Button variant={'secondary'} size={'sm'}>
-                        Atualizar
+                      <Button
+                        size={'icon'}
+                        variant={'secondary'}
+                        className="rounded-full w-8 h-8"
+                      >
+                        <Edit size={16} />
                       </Button>
                     </Link>
 
                     <Button
                       onClick={() => onDelete(product.id)}
                       variant={'destructive'}
-                      size={'sm'}
+                      size={'icon'}
+                      className="rounded-full w-8 h-8"
                     >
-                      Excluir
+                      <Trash size={16} />
                     </Button>
                   </TableCell>
                 </TableRow>
