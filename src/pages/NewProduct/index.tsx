@@ -11,7 +11,6 @@ export default function NewProduct() {
     try {
       await productService.createProduct(data)
       Toast('success', 'Produto Cadastrado')
-      Toast('error', 'Ocorreu um erro ao cadastrar o produto')
     } catch (error) {
       console.log(error)
       Toast('error', 'Ocorreu um erro ao cadastrar o produto')
