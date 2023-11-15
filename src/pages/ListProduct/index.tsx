@@ -20,6 +20,7 @@ import Spinner from '@/components/Loader/Spinner'
 import ProductForm from '@/components/ProductForm'
 import { z } from 'zod'
 import { formSchema } from '@/lib/formSchema'
+import { Edit, Trash2 } from 'lucide-react'
 
 export default function ListProduct() {
   const [product, setProduct] = useState<MappedProduct>({} as MappedProduct)
@@ -76,17 +77,24 @@ export default function ListProduct() {
           <>
             <div className="flex gap-8 items-center justify-start">
               <h1 className="">{product?.name}</h1>
-              <div>
+              <div className="space-x-2">
                 <DialogTrigger>
-                  <Button variant={'secondary'}>Atualizar</Button>
+                  <Button
+                    size={'icon'}
+                    variant={'secondary'}
+                    className="rounded-full w-8 h-8"
+                  >
+                    <Edit size={16} />
+                  </Button>
                 </DialogTrigger>
 
                 <Button
                   onClick={() => onDelete(product?.id)}
-                  className="ml-3"
                   variant={'destructive'}
+                  size={'icon'}
+                  className="rounded-full w-8 h-8"
                 >
-                  Excluir
+                  <Trash2 size={16} />
                 </Button>
               </div>
             </div>

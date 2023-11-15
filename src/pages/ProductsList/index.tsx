@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
-import { ChevronLeft, ChevronRight, Edit, Trash } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Edit, Eye, Trash2 } from 'lucide-react'
 import SkeletonGroup from './components/SkeletonGroup'
 
 import useProductsList from './useProductsList'
@@ -21,7 +21,6 @@ export default function ProductsList() {
     handlePrevButtonClick,
     handleNextButtonClick,
     onDelete,
-    handleClick,
   } = useProductsList()
 
   return (
@@ -42,15 +41,18 @@ export default function ProductsList() {
 
             {!isLoading &&
               products.map((product) => (
-                <TableRow
-                  onClick={() => handleClick(product.id)}
-                  key={product.id}
-                >
+                <TableRow key={product.id}>
                   <TableCell>{product.id}</TableCell>
                   <TableCell>{product.name}</TableCell>
                   <TableCell>{product.quantity}</TableCell>
                   <TableCell>{product.category.name}</TableCell>
                   <TableCell className="flex gap-2">
+                    <Link to={`/products/${product.id}`}>
+                      <Button size={'icon'} className="rounded-full w-8 h-8">
+                        <Eye size={16} />
+                      </Button>
+                    </Link>
+
                     <Link to={`/products/edit/${product.id}`}>
                       <Button
                         size={'icon'}
@@ -67,7 +69,7 @@ export default function ProductsList() {
                       size={'icon'}
                       className="rounded-full w-8 h-8"
                     >
-                      <Trash size={16} />
+                      <Trash2 size={16} />
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -81,7 +83,7 @@ export default function ProductsList() {
           disabled={pagesMetadata.currentPage === 1}
           onClick={handlePrevButtonClick}
           size={'icon'}
-          className="rounded-full w-8 h-8"
+          className="rounded-full w-8 h-8 z-[89]"
         >
           <ChevronLeft />
         </Button>

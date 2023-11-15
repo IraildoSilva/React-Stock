@@ -50,6 +50,7 @@ export class HttpClient implements IHttpClient {
   }
 
   async put(path: string, data: MappedProductToPersistance) {
+    await delay(1200)
     const headers = new Headers()
 
     headers.append('Content-Type', 'application/json')

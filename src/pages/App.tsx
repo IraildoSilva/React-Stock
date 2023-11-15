@@ -42,7 +42,7 @@ export default function App() {
               onClick={handleToggleTheme}
               className="hover:bg-gray-200/20"
             >
-              {theme === 'dark' && <Sun color="rgb(17 24 39)" />}
+              {theme === 'dark' && <Sun />}
               {theme === 'light' && <Moon />}
             </Button>
           </div>

@@ -4,10 +4,10 @@ export default function SkeletonGroup() {
   return (
     <>
       <div className="mt-6 flex gap-4 items-center justify-start">
-        <Skeleton className="w-52 h-8" />
+        <Skeleton className="w-56 h-8" />
         <div className="flex">
-          <Skeleton className="w-24 h-8" />
-          <Skeleton className="w-24 h-8 ml-3" />
+          <Skeleton className="w-10 h-10 rounded-full" />
+          <Skeleton className="w-10 h-10 ml-3 rounded-full" />
         </div>
       </div>
 
