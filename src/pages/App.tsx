@@ -12,10 +12,11 @@ export default function App() {
 
   function handleToggleTheme() {
     setTheme((prevState) => (prevState === 'dark' ? 'light' : 'dark'))
+    document.documentElement.classList.toggle('dark')
   }
 
   return (
-    <div className={theme}>
+    <div>
       <div className="w-full min-h-screen h-full bg-gray-100 dark:bg-gray-900 px-12 py-4 text-gray-900 dark:text-gray-100">
         <header className="flex items-center justify-between mb-2">
           <h1 className="text-2xl font-semibold  uppercase">ReactStock</h1>
@@ -41,7 +42,7 @@ export default function App() {
               onClick={handleToggleTheme}
               className="hover:bg-gray-200/20"
             >
-              {theme === 'dark' && <Sun color="white" />}
+              {theme === 'dark' && <Sun color="rgb(17 24 39)" />}
               {theme === 'light' && <Moon />}
             </Button>
           </div>

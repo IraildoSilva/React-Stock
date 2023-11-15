@@ -50,7 +50,11 @@ export default function ProductForm({ product, onSubmit }: IProductFormProps) {
               <FormItem>
                 <FormLabel>Nome</FormLabel>
                 <FormControl>
-                  <Input placeholder="Nome do produto" {...field} />
+                  <Input
+                    className="shadow-md"
+                    placeholder="Nome do produto"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -64,7 +68,7 @@ export default function ProductForm({ product, onSubmit }: IProductFormProps) {
               <FormItem>
                 <FormLabel>Quantidade</FormLabel>
                 <FormControl>
-                  <Input type="number" {...field} />
+                  <Input className="shadow-md" type="number" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -78,7 +82,7 @@ export default function ProductForm({ product, onSubmit }: IProductFormProps) {
               <FormItem>
                 <FormLabel>Preço</FormLabel>
                 <FormControl>
-                  <Input type="number" {...field} />
+                  <Input className="shadow-md" type="number" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -96,7 +100,7 @@ export default function ProductForm({ product, onSubmit }: IProductFormProps) {
                   defaultValue={field.value}
                 >
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className="shadow-md">
                       <SelectValue placeholder="Selecione uma categoria" />
                     </SelectTrigger>
                   </FormControl>
@@ -129,7 +133,7 @@ export default function ProductForm({ product, onSubmit }: IProductFormProps) {
                 <FormControl>
                   <Textarea
                     placeholder="Descrição do produto"
-                    className="resize-none"
+                    className="resize-none shadow-md"
                     {...field}
                   />
                 </FormControl>
