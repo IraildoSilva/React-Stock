@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { productService } from '@/services/Product/ProductService'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { MappedProduct } from '@/@types/MappedProduct'
 
@@ -29,22 +29,26 @@ export default function ListProduct() {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    async function loadProduct() {
-      try {
-        setIsLoading(true)
-        const product = await productService.getProductById(id!)
+  const loadProduct = useCallback(async () => {
+    try {
+      setIsLoading(true)
+      const product = await productService.getProductById(id!)
 
-        setProduct(product)
-      } catch (error) {
-        console.log(error)
-      } finally {
-        setIsLoading(false)
-      }
+      setProduct(product)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [id])
+
+  useEffect(() => {
+    async function fetchProduct() {
+      loadProduct()
     }
 
-    loadProduct()
-  }, [id])
+    fetchProduct()
+  }, [loadProduct])
 
   async function onDelete(id: string) {
     try {
@@ -61,7 +65,10 @@ export default function ListProduct() {
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
       await productService.updateProduct(id!, data)
+
       Toast('success', 'Produto atualizado!')
+
+      await loadProduct()
     } catch (error) {
       console.log(error)
       Toast('error', 'Ocorreu um erro ao atualizar o produto...')
