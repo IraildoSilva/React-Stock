@@ -1,17 +1,9 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
-import { Link, useNavigate } from 'react-router-dom'
-import { ChevronLeft, ChevronRight, Edit, Eye, Trash2 } from 'lucide-react'
-import SkeletonGroup from './components/SkeletonGroup'
+import { useNavigate } from 'react-router-dom'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import useProductsList from './useProductsList'
+import ProductsListTable from './components/ProductsListTable'
 
 export default function ProductsList() {
   const {
@@ -30,61 +22,14 @@ export default function ProductsList() {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col relative h-full">
       <div>
-        <Table className="mt-3">
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[300px]">ID</TableHead>
-              <TableHead className="w-[250px]">Nome</TableHead>
-              <TableHead className="w-[150px]">Em estoque</TableHead>
-              <TableHead className="w-[150px]">Categoria</TableHead>
-              <TableHead className="w-[100px]">Ações</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {isLoading && <SkeletonGroup />}
-
-            {!isLoading &&
-              products.map((product) => (
-                <TableRow
-                  onDoubleClick={() => handleDoubleClick(product.id)}
-                  key={product.id}
-                >
-                  <TableCell>{product.id}</TableCell>
-                  <TableCell>{product.name}</TableCell>
-                  <TableCell>{product.quantity}</TableCell>
-                  <TableCell>{product.category.name}</TableCell>
-                  <TableCell className="flex gap-2">
-                    <Link to={`/products/${product.id}`}>
-                      <Button size={'icon'} className="rounded-full w-8 h-8">
-                        <Eye size={16} />
-                      </Button>
-                    </Link>
-
-                    <Link to={`/products/edit/${product.id}`}>
-                      <Button
-                        size={'icon'}
-                        variant={'secondary'}
-                        className="rounded-full w-8 h-8"
-                      >
-                        <Edit size={16} />
-                      </Button>
-                    </Link>
-
-                    <Button
-                      onClick={() => onDelete(product.id)}
-                      variant={'destructive'}
-                      size={'icon'}
-                      className="rounded-full w-8 h-8"
-                    >
-                      <Trash2 size={16} />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
+        <ProductsListTable
+          isLoading={isLoading}
+          products={products}
+          onDoubleClick={handleDoubleClick}
+          onDelete={onDelete}
+        />
       </div>
 
       <div className="mt-2 fixed right-12 bottom-4 flex gap-4 items-center justify-end">

@@ -10,6 +10,7 @@ export default function useProductsList() {
   const [pagesMetadata, setPagesMetadata] = useState<MappedAPIResponse['meta']>(
     {} as MappedAPIResponse['meta']
   )
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false)
 
   const loadProducts = useCallback(async () => {
     try {
@@ -55,12 +56,14 @@ export default function useProductsList() {
 
   async function onDelete(id: string) {
     try {
+      setIsLoadingDelete(true)
       await productService.deleteProduct(id)
 
       const updatedProductsList = products.filter(
         (product) => product.id !== id
       )
 
+      setIsLoadingDelete(false)
       setProducts(updatedProductsList)
 
       await loadProducts()
@@ -73,6 +76,7 @@ export default function useProductsList() {
   }
 
   return {
+    isLoadingDelete,
     isLoading,
     products,
     pagesMetadata,
