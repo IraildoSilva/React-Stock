@@ -1,14 +1,7 @@
-import { useNavigate, useParams } from 'react-router-dom'
-import { productService } from '@/services/Product/ProductService'
-import { useCallback, useEffect, useState } from 'react'
-
-import { MappedProduct } from '@/@types/MappedProduct'
-
 import Container from '@/components/Container'
 import { Button } from '@/components/ui/button'
 import SkeletonGroup from './components/SkeletonGroup'
 import formatCurrency from '@/utils/formatCurrency'
-import Toast from '@/utils/Toast'
 import {
   Dialog,
   DialogContent,
@@ -18,62 +11,11 @@ import {
 } from '@/components/ui/dialog'
 import Spinner from '@/components/Loader/Spinner'
 import ProductForm from '@/components/ProductForm'
-import { z } from 'zod'
-import { formSchema } from '@/lib/formSchema'
 import { Edit, Trash2 } from 'lucide-react'
+import useListProduct from './useListProduct'
 
 export default function ListProduct() {
-  const [product, setProduct] = useState<MappedProduct>({} as MappedProduct)
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-
-  const { id } = useParams()
-  const navigate = useNavigate()
-
-  const loadProduct = useCallback(async () => {
-    try {
-      setIsLoading(true)
-      const product = await productService.getProductById(id!)
-
-      setProduct(product)
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [id])
-
-  useEffect(() => {
-    async function fetchProduct() {
-      loadProduct()
-    }
-
-    fetchProduct()
-  }, [loadProduct])
-
-  async function onDelete(id: string) {
-    try {
-      await productService.deleteProduct(id)
-
-      Toast('success', 'Produto excluído')
-      navigate('/products')
-    } catch (error) {
-      console.log(error)
-      Toast('error', 'Ocorreu um erro ao deletar o produto')
-    }
-  }
-
-  async function onSubmit(data: z.infer<typeof formSchema>) {
-    try {
-      await productService.updateProduct(id!, data)
-
-      Toast('success', 'Produto atualizado!')
-
-      await loadProduct()
-    } catch (error) {
-      console.log(error)
-      Toast('error', 'Ocorreu um erro ao atualizar o produto...')
-    }
-  }
+  const { isLoading, product, onDelete, onSubmit } = useListProduct()
 
   return (
     <div className="mt-4">
