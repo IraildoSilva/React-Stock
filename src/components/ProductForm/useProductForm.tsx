@@ -60,7 +60,6 @@ export default function useProductForm({
   async function handleSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
 
-    console.log(data)
     await onSubmit(data)
 
     setIsLoading(false)
