@@ -2,7 +2,6 @@ import * as z from 'zod'
 import { formSchema } from '@/lib/formSchema'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import { IProductFormProps } from '.'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -11,7 +10,6 @@ export default function useProductForm({
   onSubmit,
 }: IProductFormProps) {
   const [isLoading, setIsLoading] = useState(false)
-  const navigate = useNavigate()
 
   let defaultValues
 
@@ -44,8 +42,6 @@ export default function useProductForm({
     await onSubmit(data)
 
     setIsLoading(false)
-
-    navigate('/products')
   }
 
   return {
