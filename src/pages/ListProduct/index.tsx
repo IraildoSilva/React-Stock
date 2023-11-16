@@ -78,7 +78,7 @@ export default function ListProduct() {
             <div className="flex gap-8 items-center justify-start">
               <h1 className="">{product?.name}</h1>
               <div className="space-x-2">
-                <DialogTrigger>
+                <DialogTrigger asChild>
                   <Button
                     size={'icon'}
                     variant={'secondary'}

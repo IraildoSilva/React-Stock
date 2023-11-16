@@ -7,7 +7,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ChevronLeft, ChevronRight, Edit, Eye, Trash2 } from 'lucide-react'
 import SkeletonGroup from './components/SkeletonGroup'
 
@@ -22,6 +22,12 @@ export default function ProductsList() {
     handleNextButtonClick,
     onDelete,
   } = useProductsList()
+
+  const navigate = useNavigate()
+
+  function handleDoubleClick(id: string) {
+    navigate(`/products/${id}`)
+  }
 
   return (
     <div className="flex flex-col">
@@ -41,7 +47,10 @@ export default function ProductsList() {
 
             {!isLoading &&
               products.map((product) => (
-                <TableRow key={product.id}>
+                <TableRow
+                  onDoubleClick={() => handleDoubleClick(product.id)}
+                  key={product.id}
+                >
                   <TableCell>{product.id}</TableCell>
                   <TableCell>{product.name}</TableCell>
                   <TableCell>{product.quantity}</TableCell>
