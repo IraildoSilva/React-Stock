@@ -2,9 +2,10 @@ import { cn } from '@/lib/utils'
 
 interface ISpinnerProps {
   className: string
+  pathClassName?: string
 }
 
-export default function Spinner({ className }: ISpinnerProps) {
+export default function Spinner({ className, pathClassName }: ISpinnerProps) {
   return (
     <svg
       className={cn('animate-spin text-gray-900 dark:text-gray-100', className)}
@@ -27,7 +28,7 @@ export default function Spinner({ className }: ISpinnerProps) {
         strokeWidth="5"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="text-gray-100 dark:text-gray-900"
+        className={cn('text-gray-100 dark:text-gray-900', pathClassName)}
       ></path>
     </svg>
   )

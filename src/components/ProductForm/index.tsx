@@ -30,10 +30,11 @@ export interface IProductFormProps {
 }
 
 export default function ProductForm({ product, onSubmit }: IProductFormProps) {
-  const { form, handleSubmit, isLoading } = useProductForm({
-    product,
-    onSubmit,
-  })
+  const { form, handleSubmit, isLoading, categories, isLoadingCategories } =
+    useProductForm({
+      product,
+      onSubmit,
+    })
 
   return (
     <>
@@ -68,7 +69,12 @@ export default function ProductForm({ product, onSubmit }: IProductFormProps) {
               <FormItem>
                 <FormLabel>Quantidade</FormLabel>
                 <FormControl>
-                  <Input className="shadow-md" type="number" {...field} />
+                  <Input
+                    placeholder="0"
+                    className="shadow-md"
+                    type="number"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -82,7 +88,12 @@ export default function ProductForm({ product, onSubmit }: IProductFormProps) {
               <FormItem>
                 <FormLabel>Preço</FormLabel>
                 <FormControl>
-                  <Input className="shadow-md" type="number" {...field} />
+                  <Input
+                    placeholder="0"
+                    className="shadow-md"
+                    type="number"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -92,10 +103,10 @@ export default function ProductForm({ product, onSubmit }: IProductFormProps) {
             control={form.control}
             name="categoryId"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="relative">
                 <FormLabel>Categoria</FormLabel>
                 <Select
-                  disabled={isLoading}
+                  disabled={isLoading || isLoadingCategories}
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                 >
@@ -105,19 +116,20 @@ export default function ProductForm({ product, onSubmit }: IProductFormProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="5d9d95b0-7a1a-402d-a89b-e0c2b0570628">
-                      Jogos
-                    </SelectItem>
-                    <SelectItem value="6c7371d2-8c7a-46b4-91ae-0117dc4e2d33">
-                      Periféricos
-                    </SelectItem>
-                    <SelectItem value="bff0bfbc-abd1-491e-9612-e2a488a1be15">
-                      Notebooks
-                    </SelectItem>
-                    <SelectItem value="1d52ad22-7251-49d3-8029-8fb2f5e2e3c3">
-                      Smartphones
-                    </SelectItem>
+                    {categories.map((category) => (
+                      <SelectItem key={category.id} value={category.id}>
+                        {category.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
+                  {isLoadingCategories && (
+                    <div className="absolute top-8 right-12">
+                      <Spinner
+                        className="h-5 w-5 text-gray-100 dark:text-gray-900"
+                        pathClassName="text-gray-900 dark:text-gray-100"
+                      />
+                    </div>
+                  )}
                 </Select>
                 <FormMessage />
               </FormItem>
