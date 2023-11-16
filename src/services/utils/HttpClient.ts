@@ -5,6 +5,15 @@ interface IHttpClient {
   baseURL: string
 }
 
+interface IRequestOptions {
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE'
+  body?: MappedProductToPersistance
+  headers?: {
+    name: string
+    value: string
+  }
+}
+
 export class HttpClient implements IHttpClient {
   baseURL: string
 
@@ -12,28 +21,53 @@ export class HttpClient implements IHttpClient {
     this.baseURL = baseURL
   }
 
-  async get(path: string) {
-    await delay(1200)
-    const response = await fetch(`${this.baseURL}${path}`)
-    const parsedData = await response.json()
-
-    return parsedData
+  get(path: string) {
+    return this.makeRequest(path, {
+      method: 'GET',
+    })
   }
 
-  async post(path: string, data: MappedProductToPersistance) {
+  post(path: string, body: MappedProductToPersistance) {
+    return this.makeRequest(path, {
+      method: 'POST',
+      body,
+    })
+  }
+
+  async put(path: string, body: MappedProductToPersistance) {
+    return this.makeRequest(path, {
+      method: 'PUT',
+      body,
+    })
+  }
+
+  async delete(path: string) {
+    return this.makeRequest(path, {
+      method: 'DELETE',
+    })
+  }
+
+  async makeRequest(path: string, options: IRequestOptions) {
     await delay(1200)
 
     const headers = new Headers()
+    if (options.body) {
+      headers.append('Content-Type', 'application/json')
+    }
 
-    headers.append('Content-Type', 'application/json')
+    if (options.headers) {
+      Object.entries(options.headers).forEach(([name, value]) => {
+        headers.append(name, value)
+      })
+    }
 
     const response = await fetch(`${this.baseURL}${path}`, {
-      method: 'POST',
-      body: JSON.stringify(data),
+      method: options.method,
+      body: JSON.stringify(options.body),
       headers,
     })
 
-    let responseBody = null
+    let responseBody
 
     const contentType = response.headers.get('Content-Type')
     if (contentType?.includes('application/json')) {
@@ -47,40 +81,5 @@ export class HttpClient implements IHttpClient {
     throw new Error(
       responseBody.error || `${response.status} - ${response.statusText}`
     )
-  }
-
-  async put(path: string, data: MappedProductToPersistance) {
-    await delay(1200)
-    const headers = new Headers()
-
-    headers.append('Content-Type', 'application/json')
-
-    const response = await fetch(`${this.baseURL}${path}`, {
-      method: 'PUT',
-      body: JSON.stringify(data),
-      headers,
-    })
-
-    let responseBody = null
-
-    const contentType = response.headers.get('Content-Type')
-
-    if (contentType?.includes('application/json')) {
-      responseBody = await response.json()
-    }
-
-    if (response.ok) {
-      return responseBody
-    }
-
-    throw new Error(
-      responseBody.error || `${response.status} - ${response.statusText} `
-    )
-  }
-
-  async delete(path: string) {
-    await fetch(`${this.baseURL}${path}`, {
-      method: 'DELETE',
-    })
   }
 }
