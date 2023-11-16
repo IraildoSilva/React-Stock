@@ -21,13 +21,14 @@ export default function useEditProduct() {
         setProduct(data)
       } catch (error) {
         console.log(error)
+        navigate('/products')
       } finally {
         //
       }
     }
 
     loadProduct()
-  }, [id])
+  }, [id, navigate])
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
