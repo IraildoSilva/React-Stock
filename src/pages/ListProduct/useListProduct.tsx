@@ -34,7 +34,11 @@ export default function useListProduct() {
 
   async function onDelete(id: string) {
     try {
+      setIsLoading(true)
+
       await productService.deleteProduct(id)
+
+      setIsLoading(false)
 
       Toast('success', 'Produto excluído')
       navigate('/products')
